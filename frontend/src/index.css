@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  color-scheme:light;
+  --paper:80 6% 93%;
+  --surface:80 8% 97%;
+  --ink:210 14% 9%;
+  --mute:210 6% 34%;
+  --rule:85 5% 76%;
+  --bull:148 66% 24%;
+  --bear:4 70% 42%;
+  --flat:210 6% 40%;
+  --mark:50 94% 60%;
+  --on-mark:210 14% 9%;
+}
+
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:200 8% 7%;
+  --surface:200 7% 10%;
+  --ink:70 8% 91%;
+  --mute:70 4% 66%;
+  --rule:200 5% 23%;
+  --bull:146 52% 56%;
+  --bear:6 80% 66%;
+  --flat:210 6% 64%;
+  --mark:50 90% 56%;
+  --on-mark:210 14% 9%;
+}
+
+@layer base{
+  html{min-width:320px;background:hsl(var(--paper))}
+  body{margin:0;min-height:100vh;font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:15px;line-height:1.5;color:hsl(var(--ink));background:hsl(var(--paper))}
+  h1,h2,h3{font-family:"Source Serif 4",Georgia,serif}
+  button,input{font:inherit;color:inherit}
+  button{cursor:pointer}
+  button:disabled{cursor:not-allowed}
+  ::selection{background:hsl(var(--mark));color:hsl(var(--on-mark))}
+  :focus-visible{outline:2px solid hsl(var(--ink));outline-offset:2px}
+}
+
+@layer components{
+  .num{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+  .panel{background:hsl(var(--surface));border:1px solid hsl(var(--rule))}
+  .sec{border-top:2px solid hsl(var(--ink));padding-top:.5rem;font-family:"Source Serif 4",Georgia,serif;font-size:1.3rem;font-weight:700;line-height:1.2;letter-spacing:-.01em}
+  .tag{display:inline-block;border:1px solid currentColor;padding:0 .4rem;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.7rem;font-weight:600;line-height:1.35rem}
+  .link{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+  .link:hover{text-decoration-thickness:2px}
+}
+
+@keyframes flash-up{from{background:hsl(var(--bull) / .3)}to{background:transparent}}
+@keyframes flash-down{from{background:hsl(var(--bear) / .3)}to{background:transparent}}
+.flash-up{animation:flash-up 1.2s ease-out}
+.flash-down{animation:flash-down 1.2s ease-out}
+
+@keyframes beat{0%,100%{opacity:1}50%{opacity:.25}}
+.live-dot{animation:beat 2s ease-in-out infinite}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+}
