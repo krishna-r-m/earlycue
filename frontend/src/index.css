@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  color-scheme:light;
+  --paper:40 12% 93%;
+  --surface:40 14% 97%;
+  --ink:30 10% 9%;
+  --mute:30 6% 34%;
+  --rule:40 8% 76%;
+  --bull:148 66% 24%;
+  --bear:4 70% 42%;
+  --flat:210 6% 40%;
+  --mark:50 94% 60%;
+  --on-mark:210 14% 9%;
+}
+
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:0 0% 11%;
+  --surface:0 0% 15%;
+  --ink:40 10% 92%;
+  --mute:0 0% 70%;
+  --rule:0 0% 28%;
+  --bull:146 50% 58%;
+  --bear:4 82% 67%;
+  --flat:0 0% 68%;
+  --mark:48 92% 58%;
+  --on-mark:0 0% 9%;
+}
+
+@layer base{
+  html{min-width:320px;background:hsl(var(--paper))}
+  body{margin:0;min-height:100vh;font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:15px;line-height:1.5;color:hsl(var(--ink));background:hsl(var(--paper))}
+  h1,h2,h3{font-family:"Source Serif 4",Georgia,serif}
+  button,input{font:inherit;color:inherit}
+  button{cursor:pointer}
+  button:disabled{cursor:not-allowed}
+  ::selection{background:hsl(var(--mark));color:hsl(var(--on-mark))}
+  :focus-visible{outline:2px solid hsl(var(--ink));outline-offset:2px}
+}
+
+@layer components{
+  .num{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+  .panel{background:hsl(var(--surface));border:1px solid hsl(var(--rule))}
+  .sec{border-top:3px double hsl(var(--ink));padding-top:.4rem;font-family:"Source Serif 4",Georgia,serif;font-size:1.2rem;font-weight:700;font-variant-caps:small-caps;letter-spacing:.03em;line-height:1.2}
+  .dropcap::first-letter{float:left;font-family:"Source Serif 4",Georgia,serif;font-size:3rem;line-height:.85;font-weight:700;padding:.2rem .5rem 0 0}
+  .tag{display:inline-block;border:1px solid currentColor;padding:0 .4rem;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.7rem;font-weight:600;line-height:1.35rem}
+  .masthead-rule{height:6px;border-top:1px solid hsl(var(--ink));border-bottom:1px solid hsl(var(--ink))}
+  .dateline{font-family:"Source Serif 4",Georgia,serif;font-style:italic}
+  .link{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+  .link:hover{text-decoration-thickness:2px}
+}
+
+@keyframes flash-up{from{background:hsl(var(--bull) / .3)}to{background:transparent}}
+@keyframes flash-down{from{background:hsl(var(--bear) / .3)}to{background:transparent}}
+.flash-up{animation:flash-up 1.2s ease-out}
+.flash-down{animation:flash-down 1.2s ease-out}
+
+@keyframes beat{0%,100%{opacity:1}50%{opacity:.25}}
+.live-dot{animation:beat 2s ease-in-out infinite}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+}
